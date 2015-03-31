@@ -13,3 +13,11 @@
 
 %:
 	dh $@ --buildsystem=ruby --with ruby
+
+override_dh_auto_build:
+	test -d bin && mv bin bin.disabled
+	dh_auto_build
+
+override_dh_auto_clean:
+	-test -d bin.disabled && mv bin.disabled bin
+	dh_auto_clean
